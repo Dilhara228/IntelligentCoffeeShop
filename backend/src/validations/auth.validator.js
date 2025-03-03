@@ -1,4 +1,4 @@
-const User = require('../validations/auth.validator');
+const User = require('../models/user.model');
 
 
 //validate firstName
