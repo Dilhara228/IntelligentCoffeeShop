@@ -16,7 +16,7 @@ const Menu = () => {
   const [showMore, setShowMore] = useState(false);
 
   return (
-    <div className="container mx-auto py-10 px-5">
+    <div id="menu" className="container mx-auto py-10 px-5">
       <h1 className="text-4xl font-bold text-center text-brown-700 mb-8">Our Menu</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">

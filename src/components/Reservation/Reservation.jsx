@@ -36,7 +36,7 @@ const Reservation = () => {
   };
 
   return (
-    <div className="bg-primary/10 py-12 px-4">
+    <div id="reservation" className="bg-primary/10 py-12 px-4">
       <h1 className="text-4xl font-bold font-cursive text-center mb-8" data-aos="fade-up">
         Reserve a Table
       </h1>

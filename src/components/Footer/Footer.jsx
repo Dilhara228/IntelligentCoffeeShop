@@ -16,8 +16,8 @@ const FooterLinks = [
     link: "/#services",
   },
   {
-    title: "Contact",
-    link: "/#contact",
+    title: "Reservation",
+    link: "/#reservation",
   },
 ];
 
@@ -32,15 +32,12 @@ const bgImage = {
 
 const Footer = () => {
   return (
-    <div style={bgImage} className="text-white">
+    <div id="footer" style={bgImage} className="text-white"> {/* Added id="footer" */}
       <div className="bg-black/40 min-h-[400px]">
         <div className="container grid md:grid-cols-3 pb-20 pt-5">
-          {/* company details */}
+          {/* Company details */}
           <div className="py-8 px-4">
-            <a
-              href="#"
-              className="font-semibold tracking-widest text-2xl sm:text-3xl font-cursive"
-            >
+            <a href="#" className="font-semibold tracking-widest text-2xl sm:text-3xl font-cursive">
               Aroma Coffee Cafe
             </a>
             <p className="pt-4">
@@ -54,16 +51,11 @@ const Footer = () => {
           <div className="col-span-2 grid grid-cols-2 sm:grid-cols-3 md:pl-10">
             {/* Quick Links */}
             <div className="py-8 px-4">
-              <h1 className="text-xl font-semibold sm:text-left mb-3">
-                Quick Links
-              </h1>
+              <h1 className="text-xl font-semibold sm:text-left mb-3">Quick Links</h1>
               <ul className="space-y-3">
                 {FooterLinks.map((data, index) => (
                   <li key={index}>
-                    <a
-                      href={data.link}
-                      className="inline-block hover:scale-105 duration-200"
-                    >
+                    <a href={data.link} className="inline-block hover:scale-105 duration-200">
                       {data.title}
                     </a>
                   </li>
@@ -73,72 +65,21 @@ const Footer = () => {
 
             {/* Opening Hours */}
             <div className="py-8 px-4">
-              <h2
-                className="text-xl font-semibold sm:text-left mb-3"
-                style={{ fontSize: "1.25rem", fontFamily: "Arial, sans-serif" }}
-              >
-                Opening Hours
-              </h2>
+              <h2 className="text-xl font-semibold sm:text-left mb-3">Opening Hours</h2>
               <div>
-                <p
-                  className="mb-3"
-                  style={{ fontSize: "1rem", fontFamily: "Arial, sans-serif" }}
-                >
-                  9AM - 2PM
-                </p>
-                <p
-                  style={{
-                    fontSize: "1rem",
-                    fontFamily: "Arial, sans-serif",
-                  }}
-                >
-                  5PM - 10PM
-                </p>
-                <p
-                className="mb-3 mt-3"
-                  style={{
-                  fontSize: "1rem",
-                  fontFamily: "Arial, sans-serif",
-               }}
-               >
-                  Wednesday - Monday
-               </p>
-               <p
-                  className="mb-3 mt-3"
-                  style={{
-                  fontSize: "1rem",
-                  fontFamily: "Arial, sans-serif",
-              }}
-              >
-                  Closed on Tuesdays
-              </p>
-
+                <p className="mb-3">9AM - 2PM</p>
+                <p>5PM - 10PM</p>
+                <p className="mb-3 mt-3">Wednesday - Monday</p>
+                <p className="mb-3 mt-3">Closed on Tuesdays</p>
               </div>
             </div>
 
             {/* Company Address */}
             <div className="py-8 px-4 col-span-2 sm:col-auto">
-              <h1
-                className="text-xl font-semibold sm:text-left mb-3"
-                style={{ fontSize: "1.25rem", fontFamily: "Arial, sans-serif" }}
-              >
-                Address
-              </h1>
+              <h1 className="text-xl font-semibold sm:text-left mb-3">Address</h1>
               <div>
-                <p
-                  className="mb-3"
-                  style={{ fontSize: "1rem", fontFamily: "Arial, sans-serif" }}
-                >
-                  88 Staple St, Colombo 03, Sri Lanka
-                </p>
-                <p
-                  style={{
-                    fontSize: "1rem",
-                    fontFamily: "Arial, sans-serif",
-                  }}
-                >
-                  +94 754590989
-                </p>
+                <p className="mb-3">88 Staple St, Colombo 03, Sri Lanka</p>
+                <p>+94 754590989</p>
               </div>
 
               {/* Social Links */}

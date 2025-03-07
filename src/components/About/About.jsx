@@ -3,7 +3,7 @@ import CoffeeShop from "../../assets/CoffeeShop.webp";
 
 const About = () => {
   return (
-    <div className="bg-[#f3e5d8] py-16 px-6">
+    <div id="about" className="bg-[#f3e5d8] py-16 px-6">
       <div className="container mx-auto flex flex-col lg:flex-row items-center lg:gap-16">
         {/* Image Section */}
         <div data-aos="fade-right" className="w-full lg:w-2/5 mb-8 lg:mb-0">
