@@ -1,45 +1,21 @@
 import React from "react";
+import { useState } from "react"; // ✅ Add state for Login visibility
 import Logo from "../../assets/website/coffee_logo.png";
-import { FaCoffee } from "react-icons/fa";
+import Login from "../Login/Login"; // ✅ Import Login Component
 
 const Menu = [
-  {
-    id: 1,
-    name: "Home",
-    link: "/#",
-  },
-  {
-    id: 2,
-    name: "Menu",
-    link: "/#menu",
-  },
-  {
-    id: 3,
-    name: "About",
-    link: "/#about",
-  },
-  {
-    id: 4,
-    name: "Services",
-    link: "/#services",
-  },
-  {
-    id: 5,
-    name: "Reviews",
-    link: "/#reviews",
-  },
-  {
-    id: 6,
-    name: "Reservation",
-    link: "/#reservation",
-  },
-  {
-    id: 7,
-    name: "Contact",
-    link: "/#footer",
-  },
+  { id: 1, name: "Home", link: "/#" },
+  { id: 2, name: "Menu", link: "/#menu" },
+  { id: 3, name: "About", link: "/#about" },
+  { id: 4, name: "Services", link: "/#services" },
+  { id: 5, name: "Reviews", link: "/#reviews" },
+  { id: 6, name: "Reservation", link: "/#reservation" },
+  { id: 7, name: "Contact", link: "/#footer" },
 ];
+
 const Navbar = () => {
+  const [showLogin, setShowLogin] = useState(false); // ✅ State to handle Login form visibility
+
   return (
     <>
       <div className="bg-gradient-to-r from-secondary to-secondary/90 shadow-md bg-gray-900 text-white">
@@ -76,13 +52,19 @@ const Navbar = () => {
                 ))}
               </ul>
               {/* Login Button */}
-              <button className="bg-primary/70 hover:scale-105 duration-200 text-white px-4 py-2 rounded-full flex items-center gap-3">
-               Login 
+              <button
+                className="bg-primary/70 hover:scale-105 duration-200 text-white px-4 py-2 rounded-full flex items-center gap-3"
+                onClick={() => setShowLogin(true)} // ✅ Open Login Form
+              >
+                Login
               </button>
             </div>
           </div>
         </div>
       </div>
+
+      {/* ✅ Conditionally Render Login Form */}
+      {showLogin && <Login setShowLogin={setShowLogin} />}
     </>
   );
 };
