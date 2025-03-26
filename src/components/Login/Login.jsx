@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { FaEye, FaEyeSlash, FaTimes } from "react-icons/fa"; // Icons for password visibility & close button
-import CoffeeImage from "../../assets/coffee-image.jpg"; // Ensure this image is in the assets folder
+import { FaEye, FaEyeSlash, FaTimes } from "react-icons/fa";
+import CoffeeImage from "../../assets/coffee-image.jpg";
 
 const Login = ({ setIsLoggedIn, setShowLogin }) => {
   const [formData, setFormData] = useState({
@@ -36,8 +36,7 @@ const Login = ({ setIsLoggedIn, setShowLogin }) => {
 
       localStorage.setItem("token", data.token);
       setIsLoggedIn(true);
-      setShowLogin(false); // Hide login form after login
-
+      setShowLogin(false);
     } catch (err) {
       setError(err.message);
     }
@@ -45,12 +44,11 @@ const Login = ({ setIsLoggedIn, setShowLogin }) => {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-lg z-50">
-      <div className="flex  bg-brandDark text-white rounded-3xl overflow-hidden w-[850px] shadow-lg relative">
-        
+      <div className="flex bg-brandDark text-white rounded-3xl overflow-hidden w-[850px] shadow-lg relative">
         {/* Close Button */}
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"
-          onClick={() => setShowLogin(false)} // Close login form
+          onClick={() => setShowLogin(false)}
         >
           <FaTimes />
         </button>
@@ -128,11 +126,22 @@ const Login = ({ setIsLoggedIn, setShowLogin }) => {
               Login
             </button>
 
-            {/* Face Recognition Login Button */}
+            {/* Face Recognition Login Button - Updated */}
             <button
               type="button"
               className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-lg hover:bg-yellow-600 transition duration-300 mt-4"
-              onClick={() => alert("Face Recognition Login Not Implemented Yet")}
+              onClick={async () => {
+                const res = await fetch("http://localhost:5000/api/face-login");
+                const data = await res.json();
+
+                if (data.success) {
+                  localStorage.setItem("token", "face-login-token");
+                  setIsLoggedIn(true);
+                  setShowLogin(false);
+                } else {
+                  alert("❌ Face not recognized");
+                }
+              }}
             >
               Face Recognition Login
             </button>
@@ -142,7 +151,10 @@ const Login = ({ setIsLoggedIn, setShowLogin }) => {
           <div className="text-center mt-6">
             <p className="text-sm text-gray-400">
               Don't have an account?{" "}
-              <a href="/signup" className="text-yellow-500 font-semibold hover:underline">
+              <a
+                href="/signup"
+                className="text-yellow-500 font-semibold hover:underline"
+              >
                 Register
               </a>
             </p>
