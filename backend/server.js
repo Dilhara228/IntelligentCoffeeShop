@@ -1,57 +1,40 @@
-const express = require ('express');
-const bodyParser = require('body-parser');
-const cors = require('cors');
-const database = require('./src/config/config');
+// backend/server.js
+
+const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const database = require('./src/config/config'); // ✅ MongoDB connection
+const authRoutes = require('./src/routes/authroute'); 
+
 dotenv.config();
 
-
- // import defined routes 
-//const productRoutes = require('./src/Routes/products');
-const userRoutes = require('./src/routes/auth.router'); 
-
-// express instance 
+// Create express app
 const app = express();
 
+// Define port
+const PORT = process.env.PORT || 5000;
 
-// define port to running server 
-const port = process.env.PORT || 3030;
-
-// handle json data and url encoded data with limit
-app.use(bodyParser.json({ limit: '50mb' }));
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-
-// // static server storage
-// app.use('/uploads', express.static('uploads'));
-
-//enable cors
+// Middleware
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true, 
-  }));
-// parse json data
+  origin: 'http://localhost:5173', // Frontend address
+  credentials: true,
+}));
+app.use(cookieParser());
 app.use(express.json());
-app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 
+// Routes
+app.use('/api/auth', authRoutes); // e.g., http://localhost:5000/api/auth/login
 
-
-// // using routes 
-// app.use('/api',apiRouter);
-//app.use(productRoutes);
-app.use('/api', userRoutes); 
-
-
-
-//default route
+// Default route
 app.get('/', (req, res) => {
-    res.send('Hello World!');
+  res.send('🚀 API is running...');
 });
 
-
-
-// port listner
-app.listen(port, () => {
-    console.log(`Server running on http://localhost:${port}`);
-   
+// Start the server
+app.listen(PORT, () => {
+  console.log(`🚀 Server running at: http://localhost:${PORT}`);
 });

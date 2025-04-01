@@ -20,6 +20,9 @@ router.route('/user/:id/update').put(userUpload,AuthController.UpdateProfile);
 //Delete methods
 router.route('/user/:id').delete(AuthController.DeleteUser); 
 
+router.route('/face-login').post(AuthController.FaceLogin);
+
+
 
 
 module.exports = router;

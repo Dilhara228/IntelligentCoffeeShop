@@ -5,12 +5,21 @@ import EspressoImg from "../../assets/Espresso.png";
 import CroissantImg from "../../assets/Croissant.png";
 import SandwichImg from "../../assets/Sandwich.png";
 import CookieImg from "../../assets/Cookie.png";
+import CappuccinoImg from "../../assets/Cappuccino.png";
+import MuffinImg from "../../assets/Muffin.png";
+import AvocadoToastImg from "../../assets/AvocadoToast.png";
+import ProteinShakeImg from "../../assets/ProteinShake.png";
 
 const selectedItems = [
   { name: "Espresso", price: "LKR 950", img: EspressoImg },
   { name: "Croissant", price: "LKR 650", img: CroissantImg },
   { name: "Chicken Sandwich", price: "LKR 1,500", img: SandwichImg },
   { name: "Chocolate Chip Cookie", price: "LKR 450", img: CookieImg },
+
+  { name: "Cappuccino", price: "LKR 1,200", img: CappuccinoImg },
+  { name: "Blueberry Muffin", price: "LKR 700", img: MuffinImg },
+  { name: "Avocado Toast", price: "LKR 950", img: AvocadoToastImg },
+  { name: "Protein Shake", price: "LKR 950", img: ProteinShakeImg },
 ];
 
 const Menu = () => {

@@ -1,8 +1,8 @@
-import React from "react";
-import { useState } from "react"; // ✅ Add state for Login visibility
+import React, { useState } from "react";
 import Logo from "../../assets/website/coffee_logo.png";
-import Login from "../Login/Login"; // ✅ Import Login Component
+import { FaSearch, FaUser, FaShoppingBag } from "react-icons/fa";
 
+// Menu links
 const Menu = [
   { id: 1, name: "Home", link: "/#" },
   { id: 2, name: "Menu", link: "/#menu" },
@@ -13,31 +13,29 @@ const Menu = [
   { id: 7, name: "Contact", link: "/#footer" },
 ];
 
-const Navbar = () => {
-  const [showLogin, setShowLogin] = useState(false); // ✅ State to handle Login form visibility
-
+const Navbar = ({ setShowLogin, setShowRegister }) => {
   return (
     <>
       <div className="bg-gradient-to-r from-secondary to-secondary/90 shadow-md bg-gray-900 text-white">
         <div className="container py-2">
           <div className="flex justify-between items-center">
-            {/* Logo section */}
+            {/* Logo Section */}
             <div data-aos="fade-down" data-aos-once="true">
               <a
                 href="#"
-                className="font-bold text-2xl sm:text-3xl flex justify-center items-center gap-2 tracking-wider font-cursive"
+                className="font-bold text-2xl sm:text-3xl flex items-center gap-2 tracking-wider font-cursive"
               >
                 <img src={Logo} alt="Logo" className="w-14" />
                 Aroma Coffee Cafe
               </a>
             </div>
 
-            {/* Link section */}
+            {/* Navigation Links */}
             <div
               data-aos="fade-down"
               data-aos-once="true"
               data-aos-delay="300"
-              className="flex justify-between items-center gap-4"
+              className="flex items-center gap-6"
             >
               <ul className="hidden sm:flex items-center gap-4">
                 {Menu.map((menu) => (
@@ -51,20 +49,23 @@ const Navbar = () => {
                   </li>
                 ))}
               </ul>
-              {/* Login Button */}
-              <button
-                className="bg-primary/70 hover:scale-105 duration-200 text-white px-4 py-2 rounded-full flex items-center gap-3"
-                onClick={() => setShowLogin(true)} // ✅ Open Login Form
-              >
-                Login
-              </button>
+
+              {/* Right-side Icons */}
+              <div className="flex items-center gap-5 text-white text-xl">
+                <FaSearch className="cursor-pointer hover:text-yellow-400" />
+                <FaUser
+                  className="cursor-pointer hover:text-yellow-400"
+                  onClick={() => {
+                    setShowLogin(true);
+                    setShowRegister(false); // Make sure Register is closed
+                  }}
+                />
+                <FaShoppingBag className="cursor-pointer hover:text-yellow-400" />
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* ✅ Conditionally Render Login Form */}
-      {showLogin && <Login setShowLogin={setShowLogin} />}
     </>
   );
 };

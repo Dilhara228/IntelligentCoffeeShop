@@ -6,18 +6,23 @@ import Register from "./Pages/Register/Register";
 import Hero from "./components/Hero/Hero";
 import Navbar from "./components/Navbar/Navbar";
 import Menu from "./components/Menu/Menu";
-import MenuPage from "./Pages/MenuPage/MenuPage"; 
+import MenuPage from "./Pages/MenuPage/MenuPage";
 import About from "./components/About/About";
 import Services from "./components/Services/Services";
 import Reviews from "./components/Reviews/Reviews";
 import Reservation from "./components/Reservation/Reservation";
 import Footer from "./components/Footer/Footer";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [showLogin, setShowLogin] = useState(true); // Login appears first
+  const [showLogin, setShowLogin] = useState(false);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
+
 
   useEffect(() => {
     AOS.init({
@@ -27,25 +32,44 @@ const App = () => {
       delay: 100,
     });
 
-    // Check if user is already logged in (stored token)
     const token = localStorage.getItem("token");
     if (token) {
       setIsLoggedIn(true);
-      setShowLogin(false); // Hide login form if already logged in
     }
   }, []);
 
   return (
     <Router>
       <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 overflow-x-hidden">
-        {/* Show Login Form First */}
-        {showLogin ? (
-          <Login setIsLoggedIn={setIsLoggedIn} setShowLogin={setShowLogin} />
-        ) : (
+        
+        {/* Show Register Modal */}
+        {showRegister && (
+          <Register
+            setShowRegister={setShowRegister}
+            setShowLogin={setShowLogin}
+          />
+        )}
+
+        {/* Show Login Modal */}
+        {showLogin && (
+          <Login
+            setIsLoggedIn={setIsLoggedIn}
+            setShowLogin={setShowLogin}
+            setShowRegister={setShowRegister} 
+          />
+        )}
+
+        {showForgotPassword && (
+         <ForgotPassword setShowForgotPassword={setShowForgotPassword} setShowLogin={setShowLogin} />
+        )}
+
+        
+
+        {/* Main content hidden when modals open */}
+        {!showLogin && !showRegister && (
           <>
-            <Navbar />
+            <Navbar setShowLogin={setShowLogin} setShowRegister={setShowRegister} />
             <Routes>
-              {/* Home Page */}
               <Route
                 path="/"
                 element={
@@ -60,7 +84,6 @@ const App = () => {
                   </>
                 }
               />
-              {/* Menu Page */}
               <Route path="/menu" element={<MenuPage />} />
             </Routes>
           </>
