@@ -3,6 +3,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Login from "./components/Login/Login";
 import Register from "./Pages/Register/Register";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import FaceRecognition from "./components/FaceRecognition/FaceRecognition"; // ✅ Import face login
+
 import Hero from "./components/Hero/Hero";
 import Navbar from "./components/Navbar/Navbar";
 import Menu from "./components/Menu/Menu";
@@ -12,7 +15,6 @@ import Services from "./components/Services/Services";
 import Reviews from "./components/Reviews/Reviews";
 import Reservation from "./components/Reservation/Reservation";
 import Footer from "./components/Footer/Footer";
-import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -22,7 +24,7 @@ const App = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showRegister, setShowRegister] = useState(false);
   const [showForgotPassword, setShowForgotPassword] = useState(false);
-
+  const [showFaceLogin, setShowFaceLogin] = useState(false); // ✅ New state for face login
 
   useEffect(() => {
     AOS.init({
@@ -41,34 +43,40 @@ const App = () => {
   return (
     <Router>
       <div className="bg-white dark:bg-gray-900 dark:text-white duration-200 overflow-x-hidden">
-        
-        {/* Show Register Modal */}
+        {/* === Global Modals === */}
+        {showLogin && (
+          <Login
+            setIsLoggedIn={setIsLoggedIn}
+            setShowLogin={setShowLogin}
+            setShowRegister={setShowRegister}
+            setShowForgotPassword={setShowForgotPassword}
+            setShowFaceLogin={setShowFaceLogin} // ✅ Pass face login handler
+          />
+        )}
         {showRegister && (
           <Register
             setShowRegister={setShowRegister}
             setShowLogin={setShowLogin}
           />
         )}
-
-        {/* Show Login Modal */}
-        {showLogin && (
-          <Login
-            setIsLoggedIn={setIsLoggedIn}
+        {showForgotPassword && (
+          <ForgotPassword
+            setShowForgotPassword={setShowForgotPassword}
             setShowLogin={setShowLogin}
-            setShowRegister={setShowRegister} 
+          />
+        )}
+        {showFaceLogin && (
+          <FaceRecognition
+            setShowFaceLogin={setShowFaceLogin}
+            setShowLogin={setShowLogin}
+            setIsLoggedIn={setIsLoggedIn}
           />
         )}
 
-        {showForgotPassword && (
-         <ForgotPassword setShowForgotPassword={setShowForgotPassword} setShowLogin={setShowLogin} />
-        )}
-
-        
-
-        {/* Main content hidden when modals open */}
-        {!showLogin && !showRegister && (
+        {/* === Main content (hidden when modal is open) === */}
+        {!showLogin && !showRegister && !showForgotPassword && !showFaceLogin && (
           <>
-            <Navbar setShowLogin={setShowLogin} setShowRegister={setShowRegister} />
+            <Navbar setShowLogin={setShowLogin} />
             <Routes>
               <Route
                 path="/"

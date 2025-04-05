@@ -172,52 +172,60 @@ const MenuPage = () => {
       </div>
 
       {/* Cart Drawer */}
-      {showCart && (
-        <div className="fixed top-0 right-0 h-full w-80 bg-white shadow-2xl z-50 p-6 overflow-y-auto">
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-bold">🛒 Your Cart</h2>
-            <button onClick={() => setShowCart(false)} className="text-red-500 text-xl">
-              <FaTimes />
-            </button>
-          </div>
-          {cart.length === 0 ? (
-            <p className="text-gray-500">Cart is empty</p>
-          ) : (
-            <>
-              {cart.map((item, idx) => (
-                <div key={idx} className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <img src={item.img} alt={item.name} className="w-12 h-12 rounded" />
-                    <div>
-                      <h3 className="font-semibold">{item.name}</h3>
-                      <p className="text-sm text-gray-500">
-                        LKR {getPriceValue(item.price) * item.quantity}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <button onClick={() => decrement(item.name)} className="bg-gray-200 px-2 rounded">
-                      <FaMinus />
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button onClick={() => increment(item.name)} className="bg-gray-200 px-2 rounded">
-                      <FaPlus />
-                    </button>
-                  </div>
+{showCart && (
+  <div className="fixed top-0 right-0 h-full w-[400px] bg-[#fdfaf4] shadow-2xl z-50 p-6 overflow-y-auto border-l">
+    <div className="flex justify-between items-center mb-6">
+      <h2 className="text-xl font-semibold text-gray-800">Your Cart</h2>
+      <button onClick={() => setShowCart(false)} className="text-gray-500 hover:text-red-500 text-lg">
+        <FaTimes />
+      </button>
+    </div>
+
+    {cart.length === 0 ? (
+      <p className="text-gray-500">Cart is empty</p>
+    ) : (
+      <>
+        {cart.map((item, idx) => (
+          <div key={idx} className="flex justify-between items-center py-4 border-b">
+            <div className="flex items-center gap-4 w-full">
+              <img src={item.img} alt={item.name} className="w-14 h-14 object-contain rounded-md" />
+              <div className="flex-1">
+                <h3 className="text-gray-800 font-medium text-[15px] leading-snug">{item.name}</h3>
+                <p className="text-sm text-gray-500 mt-1">LKR {getPriceValue(item.price) * item.quantity}</p>
+                <div className="mt-2 flex items-center gap-2">
+                  <button onClick={() => decrement(item.name)} className="border px-2 text-sm rounded hover:bg-gray-100">
+                    <FaMinus size={12} />
+                  </button>
+                  <span className="px-2 text-sm">{item.quantity}</span>
+                  <button onClick={() => increment(item.name)} className="border px-2 text-sm rounded hover:bg-gray-100">
+                    <FaPlus size={12} />
+                  </button>
                 </div>
-              ))}
-              <hr className="my-4" />
-              <div className="flex justify-between font-bold text-lg">
-                <span>Total:</span>
-                <span>LKR {getTotal().toLocaleString()}</span>
               </div>
-              <button className="mt-6 w-full bg-yellow-500 text-black font-semibold py-3 rounded-lg hover:bg-yellow-600 transition duration-300">
-                Checkout
+              <button
+                onClick={() => setCart(cart.filter((c) => c.name !== item.name))}
+                className="text-gray-400 hover:text-red-500 transition"
+              >
+                <FaTimes size={14} />
               </button>
-            </>
-          )}
+            </div>
+          </div>
+        ))}
+
+        <div className="mt-6 border-t pt-4">
+          <div className="flex justify-between font-medium text-gray-800 text-lg">
+            <span>Total</span>
+            <span>LKR {getTotal().toLocaleString()}</span>
+          </div>
+          <button className="mt-6 w-full bg-black text-white font-semibold py-3 rounded hover:bg-gray-900 transition">
+            Continue to Checkout
+          </button>
         </div>
-      )}
+      </>
+    )}
+  </div>
+)}
+
 
       {/* Menu Render */}
       {menuCategories.map((category, index) => (

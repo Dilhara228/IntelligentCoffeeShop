@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import { FaEye, FaEyeSlash, FaTimes } from "react-icons/fa";
 import CoffeeImage from "../../assets/coffee-image.jpg";
 
-const Login = ({ setIsLoggedIn, setShowLogin, setShowRegister }) => {
+const Login = ({
+  setIsLoggedIn,
+  setShowLogin,
+  setShowRegister,
+  setShowForgotPassword,
+  setShowFaceLogin,
+}) => {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -51,7 +57,7 @@ const Login = ({ setIsLoggedIn, setShowLogin, setShowRegister }) => {
           <FaTimes />
         </button>
 
-        {/* Left Image Section */}
+        {/* Left Image */}
         <div className="w-1/2 hidden md:block">
           <img
             src={CoffeeImage}
@@ -60,7 +66,7 @@ const Login = ({ setIsLoggedIn, setShowLogin, setShowRegister }) => {
           />
         </div>
 
-        {/* Right Login Form Section */}
+        {/* Right Login Form */}
         <div className="w-full md:w-1/2 p-10">
           <h2 className="text-3xl font-bold text-center mb-4">
             ☕ Aroma Coffee Cafe
@@ -105,9 +111,15 @@ const Login = ({ setIsLoggedIn, setShowLogin, setShowRegister }) => {
                 <input type="checkbox" className="accent-yellow-500" />
                 <span>Remember me</span>
               </label>
-              <a href="#" className="hover:text-yellow-400">
+              <span
+                className="hover:text-yellow-400 cursor-pointer"
+                onClick={() => {
+                  setShowLogin(false);
+                  setShowForgotPassword(true);
+                }}
+              >
                 Forgot password?
-              </a>
+              </span>
             </div>
 
             <button
@@ -119,52 +131,25 @@ const Login = ({ setIsLoggedIn, setShowLogin, setShowRegister }) => {
 
             <button
               type="button"
-              className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-lg hover:bg-yellow-600 transition duration-300 mt-4"
-              onClick={async () => {
-                try {
-                  const res = await fetch("http://localhost:5000/api/face-login");
-                  const data = await res.json();
-
-                  if (data.success && data.email) {
-                    const loginRes = await fetch(
-                      "http://localhost:5000/api/auth/face-login",
-                      {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ email: data.email }),
-                      }
-                    );
-
-                    const loginData = await loginRes.json();
-
-                    if (loginRes.ok) {
-                      localStorage.setItem("token", loginData.token);
-                      setIsLoggedIn(true);
-                      setShowLogin(false);
-                    } else {
-                      alert(loginData.message || "Login failed");
-                    }
-                  } else {
-                    alert("❌ Face not recognized");
-                  }
-                } catch (error) {
-                  alert("Face login failed. Make sure the server is running.");
-                }
+              onClick={() => {
+                setShowLogin(false);
+                setShowFaceLogin(true); // 👈 Open face recognition modal
               }}
+              className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-lg hover:bg-yellow-600 transition duration-300 mt-4"
             >
               Face Recognition Login
             </button>
           </form>
 
-          {/* Sign-up Link */}
+          {/* Register Link */}
           <div className="text-center mt-6">
             <p className="text-sm text-gray-400">
               Don't have an account?{" "}
               <span
                 className="text-yellow-500 font-semibold hover:underline cursor-pointer"
                 onClick={() => {
-                  setShowLogin(false);     // Hide login form
-                  setShowRegister(true);   // Show register form
+                  setShowLogin(false);
+                  setShowRegister(true);
                 }}
               >
                 Register

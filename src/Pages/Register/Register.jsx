@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash, FaTimes } from "react-icons/fa";
-import CoffeeImage from "../../assets/coffee-image.jpg";
 
 const Register = ({ setShowRegister, setShowLogin }) => {
   const [formData, setFormData] = useState({
@@ -80,7 +79,7 @@ const Register = ({ setShowRegister, setShowLogin }) => {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 backdrop-blur-lg z-50">
-      <div className="flex bg-brandDark text-white rounded-3xl overflow-hidden w-[850px] shadow-lg relative">
+      <div className="bg-brandDark text-white rounded-3xl w-full max-w-lg shadow-lg relative p-10">
         {/* Close Button */}
         <button
           className="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl"
@@ -89,115 +88,103 @@ const Register = ({ setShowRegister, setShowLogin }) => {
           <FaTimes />
         </button>
 
-        {/* Left Image Section */}
-        <div className="w-1/2 hidden md:block">
-          <img
-            src={CoffeeImage}
-            alt="Coffee Beans"
-            className="w-full h-full object-cover"
-          />
-        </div>
+        <h2 className="text-3xl font-bold text-center mb-4">
+          ☕ Aroma Coffee Cafe
+        </h2>
+        <p className="text-center text-gray-300 mb-6">
+          Create your account to continue
+        </p>
 
-        {/* Right Form Section */}
-        <div className="w-full md:w-1/2 p-10">
-          <h2 className="text-3xl font-bold text-center mb-4">
-            ☕ Aroma Coffee Cafe
-          </h2>
-          <p className="text-center text-gray-300 mb-6">
-            Create your account to continue
-          </p>
+        {error && <p className="text-red-500 text-center mb-3">{error}</p>}
 
-          {error && <p className="text-red-500 text-center mb-3">{error}</p>}
-
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="flex gap-4">
-              <input
-                type="text"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-                placeholder="First Name"
-                className="w-1/2 px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                required
-              />
-              <input
-                type="text"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-                placeholder="Last Name"
-                className="w-1/2 px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                required
-              />
-            </div>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Email Address"
-              className="w-full px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-              required
-            />
-            <div className="relative">
-              <input
-                type={showPassword ? "text" : "password"}
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="Password"
-                className="w-full px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
-                required
-              />
-              <button
-                type="button"
-                className="absolute right-4 top-3 text-gray-400"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? <FaEyeSlash /> : <FaEye />}
-              </button>
-            </div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="flex gap-4">
             <input
               type="text"
-              name="address"
-              value={formData.address}
+              name="firstName"
+              value={formData.firstName}
               onChange={handleChange}
-              placeholder="Address"
-              className="w-full px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              placeholder="First Name"
+              className="w-1/2 px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             />
             <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
+              type="text"
+              name="lastName"
+              value={formData.lastName}
               onChange={handleChange}
-              placeholder="Phone Number"
+              placeholder="Last Name"
+              className="w-1/2 px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+              required
+            />
+          </div>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Email Address"
+            className="w-full px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            required
+          />
+          <div className="relative">
+            <input
+              type={showPassword ? "text" : "password"}
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              placeholder="Password"
               className="w-full px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
               required
             />
             <button
-              type="submit"
-              className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-lg hover:bg-yellow-600 transition duration-300 mt-2"
+              type="button"
+              className="absolute right-4 top-3 text-gray-400"
+              onClick={() => setShowPassword(!showPassword)}
             >
-              Register
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
             </button>
-          </form>
-
-          {/* Link to Login */}
-          <div className="text-center mt-6">
-            <p className="text-sm text-gray-400">
-              Already have an account?{" "}
-              <span
-                className="text-yellow-500 font-semibold hover:underline cursor-pointer"
-                onClick={() => {
-                  setShowRegister(false);
-                  setShowLogin(true);
-                }}
-              >
-                Login
-              </span>
-            </p>
           </div>
+          <input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            placeholder="Address"
+            className="w-full px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            required
+          />
+          <input
+            type="tel"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            placeholder="Phone Number"
+            className="w-full px-4 py-3 bg-[#f3e5d8] text-black rounded-lg border border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-500"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-yellow-500 text-black font-semibold py-3 rounded-lg hover:bg-yellow-600 transition duration-300 mt-2"
+          >
+            Register
+          </button>
+        </form>
+
+        {/* Link to Login */}
+        <div className="text-center mt-6">
+          <p className="text-sm text-gray-400">
+            Already have an account?{" "}
+            <span
+              className="text-yellow-500 font-semibold hover:underline cursor-pointer"
+              onClick={() => {
+                setShowRegister(false);
+                setShowLogin(true);
+              }}
+            >
+              Login
+            </span>
+          </p>
         </div>
       </div>
     </div>
